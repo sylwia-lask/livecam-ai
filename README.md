@@ -1,5 +1,7 @@
 # LiveCam AI
 
+**Live demo:** [sylwia-lask.github.io/livecam-ai](https://sylwia-lask.github.io/livecam-ai)
+
 Real-time webcam image captioning running entirely in the browser — no server, no API calls.
 
 ## How it works
