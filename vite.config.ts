@@ -2,8 +2,10 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+const base = process.env.BASE_URL ?? '/'
+
 export default defineConfig({
-  base: process.env.BASE_URL ?? '/',
+  base,
   plugins: [
     tailwindcss(),
     VitePWA({
@@ -12,6 +14,9 @@ export default defineConfig({
         // model weights can exceed 100 MB
         maximumFileSizeToCacheInBytes: 500 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,svg,ico,wasm}'],
+        // Explicit fallback so SW resolves index.html correctly under subpath base
+        navigateFallback: `${base}index.html`,
+        navigateFallbackAllowlist: [new RegExp(`^${base.replace(/\//g, '\\/')}`)],
         runtimeCaching: [
           {
             // HuggingFace model files (config, tokenizer, onnx weights)
